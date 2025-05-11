@@ -2,3 +2,7 @@
 	path = udemy-microsrv-gateway
 	url = git@github.com:udemy-microsrv/udemy-microsrv-gateway.git
 	branch = create-dockerfile
+[submodule "udemy-microsrv-product"]
+	path = udemy-microsrv-product
+	url = git@github.com:udemy-microsrv/udemy-microsrv-product.git
+	branch = create-dockerfile

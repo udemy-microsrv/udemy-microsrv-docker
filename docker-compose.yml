@@ -19,3 +19,13 @@ services:
     environment:
       - PORT=3000
       - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
+
+  udemy-microsrv-product:
+    build: ./udemy-microsrv-product
+    container_name: udemy-microsrv__product
+    hostname: udemy-microsrv__product
+    volumes:
+      - ./udemy-microsrv-product/src:/usr/src/app/src
+    environment:
+      - DATABASE_URL=file:./dev.db
+      - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
