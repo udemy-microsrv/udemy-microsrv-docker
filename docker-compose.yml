@@ -7,3 +7,15 @@ services:
     ports:
       - "4422:4422"
       - "8222:8222"
+
+  udemy-microsrv-gateway:
+    build: ./udemy-microsrv-gateway
+    container_name: udemy-microsrv__gateway
+    hostname: udemy-microsrv__gateway
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./udemy-microsrv-gateway/src:/usr/src/app/src
+    environment:
+      - PORT=3000
+      - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
