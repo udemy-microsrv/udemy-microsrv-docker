@@ -29,6 +29,7 @@ services:
     environment:
       - DATABASE_URL=file:./dev.db
       - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
+    command: ["npm", "run", "start:dev:docker"]
 
   udemy-microsrv-order:
     build: ./udemy-microsrv-order
