@@ -1,0 +1,9 @@
+version: "3"
+services:
+  nats-main:
+    image: nats:2.11
+    container_name: udemy-microsrv__nats-main
+    hostname: udemy-microsrv__nats-main
+    ports:
+      - "4422:4422"
+      - "8222:8222"
