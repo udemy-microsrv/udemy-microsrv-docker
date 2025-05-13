@@ -1,0 +1,61 @@
+version: "3"
+services:
+  nats-main:
+    image: nats:2.11
+    container_name: udemy-microsrv__nats-main
+    hostname: udemy-microsrv__nats-main
+    ports:
+      - "4422:4422"
+      - "8222:8222"
+
+  udemy-microsrv-gateway:
+    build: ./udemy-microsrv-gateway
+    container_name: udemy-microsrv__gateway
+    hostname: udemy-microsrv__gateway
+    ports:
+      - "${GATEWAY_PORT}:3000"
+    volumes:
+      - ./udemy-microsrv-gateway/src:/usr/src/app/src
+    environment:
+      - PORT=3000
+      - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
+
+  udemy-microsrv-product:
+    build: ./udemy-microsrv-product
+    container_name: udemy-microsrv__product
+    hostname: udemy-microsrv__product
+    volumes:
+      - ./udemy-microsrv-product/src:/usr/src/app/src
+    environment:
+      - DATABASE_URL=file:./dev.db
+      - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
+    command: ["npm", "run", "start:dev:docker"]
+
+  udemy-microsrv-order:
+    build: ./udemy-microsrv-order
+    container_name: udemy-microsrv__order
+    hostname: udemy-microsrv__order
+    volumes:
+      - ./udemy-microsrv-order/src:/usr/src/app/src
+    environment:
+      - DATABASE_URL=postgresql://admin:1234@udemy-microsrv__postgresql:5432/orders_db?schema=public
+      - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
+    command: ["npm", "run", "start:dev:docker"]
+    depends_on:
+      - postgresql
+
+  postgresql:
+    image: postgres:16.8
+    container_name: udemy-microsrv__postgresql
+    hostname: udemy-microsrv__postgresql
+    ports:
+      - "5432:5432"
+    volumes:
+      - udemy-microsrv__postgresql__data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+volumes:
+  udemy-microsrv__postgresql__data:
