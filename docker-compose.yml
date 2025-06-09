@@ -44,6 +44,21 @@ services:
     depends_on:
       - postgresql
 
+  udemy-microsrv-payment:
+    build: ./udemy-microsrv-payment
+    container_name: udemy-microsrv__payment
+    hostname: udemy-microsrv__payment
+    ports:
+      - "${PAYMENT_PORT}:3000"
+    volumes:
+      - ./udemy-microsrv-payment/src:/usr/src/app/src
+    environment:
+      - PORT=3000
+      - STRIPE_SECRET_KEY=${PAYMENT_STRIPE_SECRET_KEY}
+      - STRIPE_SUCCESS_URL=${PAYMENT_STRIPE_SUCCESS_URL}
+      - STRIPE_CANCEL_URL=${PAYMENT_STRIPE_CANCEL_URL}
+      - STRIPE_WEBHOOK_SECRET=${PAYMENT_STRIPE_WEBHOOK_SECRET}
+
   postgresql:
     image: postgres:16.8
     container_name: udemy-microsrv__postgresql
