@@ -10,3 +10,7 @@
 	path = udemy-microsrv-order
 	url = git@github.com:udemy-microsrv/udemy-microsrv-order.git
 	branch = create-dockerfile
+[submodule "udemy-microsrv-payment"]
+	path = udemy-microsrv-payment
+	url = git@github.com:udemy-microsrv/udemy-microsrv-payment.git
+	branch = implement-payments-api-and-microservice
