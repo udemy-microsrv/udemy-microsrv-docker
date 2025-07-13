@@ -20,6 +20,15 @@ services:
       - PORT=3000
       - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
 
+  udemy-microsrv-auth:
+    build: ./udemy-microsrv-auth
+    container_name: udemy-microsrv__auth
+    hostname: udemy-microsrv__auth
+    volumes:
+      - ./udemy-microsrv-auth/src:/usr/src/app/src
+    environment:
+      - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
+
   udemy-microsrv-product:
     build: ./udemy-microsrv-product
     container_name: udemy-microsrv__product
@@ -73,5 +82,22 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
 
+  mongodb:
+    image: mongodb/mongodb-community-server:8.0.9-ubuntu2204
+    container_name: udemy-microsrv__mongodb
+    hostname: udemy-microsrv__mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - udemy-microsrv__mongodb__data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_INITDB_DATABASE}
+      - MONGO_AUTHDB_USER=${MONGO_AUTHDB_USER}
+      - MONGO_AUTHDB_PASSWORD=${MONGO_AUTHDB_PASSWORD}
+
 volumes:
   udemy-microsrv__postgresql__data:
+  udemy-microsrv__mongodb__data:
