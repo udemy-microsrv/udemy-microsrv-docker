@@ -20,6 +20,18 @@ services:
       - PORT=3000
       - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
 
+  udemy-microsrv-auth:
+    build: ./udemy-microsrv-auth
+    container_name: udemy-microsrv__auth
+    hostname: udemy-microsrv__auth
+    volumes:
+      - ./udemy-microsrv-auth/src:/usr/src/app/src
+    environment:
+      - DATABASE_URL=${AUTH_DATABASE_URL}
+      - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
+      - JWT_SECRET=${AUTH_JWT_SECRET}
+    command: ["npm", "run", "start:dev:docker"]
+
   udemy-microsrv-product:
     build: ./udemy-microsrv-product
     container_name: udemy-microsrv__product

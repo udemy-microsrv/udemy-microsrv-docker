@@ -10,3 +10,6 @@
 [submodule "udemy-microsrv-payment"]
 	path = udemy-microsrv-payment
 	url = git@github.com:udemy-microsrv/udemy-microsrv-payment.git
+[submodule "udemy-microsrv-auth"]
+	path = udemy-microsrv-auth
+	url = git@github.com:udemy-microsrv/udemy-microsrv-auth.git
