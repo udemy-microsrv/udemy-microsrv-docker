@@ -31,3 +31,13 @@ Docker Compose to build and run the udemy-microsrv project, including the API Ga
    git commit -m "feat: update submodule <path to the submodule>"
    git push origin
    ```
+
+## Starting in production mode
+
+To run the application in production mode using Docker Compose, use the following command:
+
+```bash
+docker compose -f docker-compose.prod.yml up --build
+```
+
+This command will build and start the application containers as defined in the `docker-compose.prod.yml` file. **Ensure that all required environment variables are set before starting.**
