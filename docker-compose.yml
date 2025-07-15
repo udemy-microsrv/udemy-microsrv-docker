@@ -50,7 +50,7 @@ services:
     volumes:
       - ./udemy-microsrv-order/src:/usr/src/app/src
     environment:
-      - DATABASE_URL=postgresql://admin:1234@udemy-microsrv__postgresql:5432/orders_db?schema=public
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@udemy-microsrv__postgresql:5432/${POSTGRES_DB}?schema=public
       - NATS_SERVERS=nats://udemy-microsrv__nats-main:4222
     command: ["npm", "run", "start:dev:docker"]
     depends_on:
