@@ -9,7 +9,7 @@ services:
     build:
       context: ./udemy-microsrv-gateway
       dockerfile: Dockerfile.prod
-    image: udemy-microsrv-gateway
+    image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-gateway
     container_name: udemy-microsrv-gateway
     hostname: udemy-microsrv-gateway
     ports:
@@ -22,7 +22,7 @@ services:
     build:
       context: ./udemy-microsrv-auth
       dockerfile: Dockerfile.prod
-    image: udemy-microsrv-auth
+    image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-auth
     container_name: udemy-microsrv-auth
     hostname: udemy-microsrv-auth
     environment:
@@ -34,7 +34,7 @@ services:
     build:
       context: ./udemy-microsrv-product
       dockerfile: Dockerfile.prod
-    image: udemy-microsrv-product
+    image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-product
     container_name: udemy-microsrv-product
     hostname: udemy-microsrv-product
     environment:
@@ -45,7 +45,7 @@ services:
     build:
       context: ./udemy-microsrv-order
       dockerfile: Dockerfile.prod
-    image: udemy-microsrv-order
+    image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-order
     container_name: udemy-microsrv-order
     hostname: udemy-microsrv-order
     environment:
@@ -56,7 +56,7 @@ services:
     build:
       context: ./udemy-microsrv-payment
       dockerfile: Dockerfile.prod
-    image: udemy-microsrv-payment
+    image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-payment
     container_name: udemy-microsrv-payment
     hostname: udemy-microsrv-payment
     ports:
