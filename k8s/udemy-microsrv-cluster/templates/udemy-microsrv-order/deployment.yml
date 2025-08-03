@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: udemy-microsrv-order
+  name: udemy-microsrv-order
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: udemy-microsrv-order
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: udemy-microsrv-order
+    spec:
+      containers:
+      - image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-order
+        name: udemy-microsrv-order
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: udemy-microsrv-order.secrets
+              key: database_url
+        - name: NATS_SERVERS
+          value: nats://nats-main:4222
+        resources: {}
+status: {}
