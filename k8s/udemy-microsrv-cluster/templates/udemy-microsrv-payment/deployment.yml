@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: udemy-microsrv-payment
+  name: udemy-microsrv-payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: udemy-microsrv-payment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: udemy-microsrv-payment
+    spec:
+      containers:
+      - image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-payment
+        name: udemy-microsrv-payment
+        env:
+        - name: PORT
+          value: "3000"
+        - name: STRIPE_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: udemy-microsrv-payment.secrets
+              key: stripe_secret_key
+        - name: STRIPE_SUCCESS_URL
+          value: http://localhost:3001/payments/successful
+        - name: STRIPE_CANCEL_URL
+          value: http://localhost:3001/payments/canceled
+        - name: STRIPE_WEBHOOK_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: udemy-microsrv-payment.secrets
+              key: stripe_webhook_secret
+        - name: NATS_SERVERS
+          value: nats://nats-main:4222
+        resources: {}
+status: {}
