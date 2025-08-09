@@ -1,0 +1,18 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: udemy-microsrv-gateway
+  name: udemy-microsrv-gateway
+spec:
+  ports:
+  - name: "3000"
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: udemy-microsrv-gateway
+  type: NodePort
+status:
+  loadBalancer: {}

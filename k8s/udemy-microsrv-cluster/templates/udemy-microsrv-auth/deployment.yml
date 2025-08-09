@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: udemy-microsrv-auth
+  name: udemy-microsrv-auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: udemy-microsrv-auth
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: udemy-microsrv-auth
+    spec:
+      containers:
+      - image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-auth
+        name: udemy-microsrv-auth
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: udemy-microsrv-auth.secrets
+              key: database_url
+        - name: NATS_SERVERS
+          value: nats://nats-main:4222
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: udemy-microsrv-auth.secrets
+              key: jwt_secret
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "256Mi"
+          limits:
+            cpu: "300m"
+            memory: "512Mi"
+status: {}

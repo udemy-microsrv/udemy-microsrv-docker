@@ -1,0 +1,30 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nats-main
+  name: nats-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nats-main
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nats-main
+    spec:
+      containers:
+      - image: nats:2.11
+        name: nats
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "256Mi"
+          limits:
+            cpu: "300m"
+            memory: "512Mi"
+status: {}

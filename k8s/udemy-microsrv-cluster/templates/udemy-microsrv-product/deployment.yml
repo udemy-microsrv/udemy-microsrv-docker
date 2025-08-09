@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: udemy-microsrv-product
+  name: udemy-microsrv-product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: udemy-microsrv-product
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: udemy-microsrv-product
+    spec:
+      containers:
+      - image: us-central1-docker.pkg.dev/udemy-microsrv/docker-images/udemy-microsrv-product
+        name: udemy-microsrv-product
+        env:
+        - name: DATABASE_URL
+          value: file:./dev.db
+        - name: NATS_SERVERS
+          value: nats://nats-main:4222
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "256Mi"
+          limits:
+            cpu: "300m"
+            memory: "512Mi"
+status: {}

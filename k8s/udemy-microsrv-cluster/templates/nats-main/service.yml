@@ -1,0 +1,18 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nats-main
+  name: nats-main
+spec:
+  ports:
+  - name: "4222"
+    port: 4222
+    protocol: TCP
+    targetPort: 4222
+  selector:
+    app: nats-main
+  type: ClusterIP
+status:
+  loadBalancer: {}
