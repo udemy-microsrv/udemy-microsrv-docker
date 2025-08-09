@@ -33,5 +33,11 @@ spec:
             secretKeyRef:
               name: udemy-microsrv-auth.secrets
               key: jwt_secret
-        resources: {}
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "256Mi"
+          limits:
+            cpu: "300m"
+            memory: "512Mi"
 status: {}

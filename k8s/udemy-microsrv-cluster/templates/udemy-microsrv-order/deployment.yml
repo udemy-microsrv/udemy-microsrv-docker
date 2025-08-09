@@ -28,5 +28,11 @@ spec:
               key: database_url
         - name: NATS_SERVERS
           value: nats://nats-main:4222
-        resources: {}
+        resources:
+          requests:
+            cpu: "150m"
+            memory: "256Mi"
+          limits:
+            cpu: "300m"
+            memory: "512Mi"
 status: {}
