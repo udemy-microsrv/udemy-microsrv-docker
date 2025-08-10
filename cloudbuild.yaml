@@ -29,3 +29,5 @@ steps:
       --set secrets.order__database_url="$$ORDER__DATABASE_URL" \
       --set secrets.payment__stripe_secret_key="$$PAYMENT__STRIPE_SECRET_KEY" \
       --set secrets.payment__stripe_webhook_secret="$$PAYMENT__STRIPE_WEBHOOK_SECRET"
+options:
+  logging: CLOUD_LOGGING_ONLY
