@@ -21,9 +21,7 @@ steps:
     PAYMENT__STRIPE_SECRET_KEY=$(gcloud secrets versions access latest --secret="payment__stripe_secret_key" --project="udemy-microsrv")
     PAYMENT__STRIPE_WEBHOOK_SECRET=$(gcloud secrets versions access latest --secret="payment__stripe_webhook_secret" --project="udemy-microsrv")
 
-    helm upgrade \
-      --install udemy-microsrv-cluster ./helm-chart-directory \
-      --namespace default \ # Or your desired namespace
+    helm upgrade udemy-microsrv-cluster ./k8s/udemy-microsrv-cluster \
       --set secrets.auth__database_url="$$AUTH__DATABASE_URL" \
       --set secrets.auth__jwt_secret="$$AUTH__JWT_SECRET" \
       --set secrets.order__database_url="$$ORDER__DATABASE_URL" \
