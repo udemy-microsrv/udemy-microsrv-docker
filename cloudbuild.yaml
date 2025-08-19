@@ -1,0 +1,31 @@
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  id: 'Configure GKE'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    gcloud container clusters get-credentials udemy-microsrv-cluster \
+      --region us-central1 \
+      --project udemy-microsrv
+
+- name: 'gcr.io/udemy-microsrv/helm'
+  id: 'Fetch Secrets and Deploy'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    AUTH__DATABASE_URL=$(gcloud secrets versions access latest --secret="auth__database_url" --project="udemy-microsrv")
+    AUTH__JWT_SECRET=$(gcloud secrets versions access latest --secret="auth__jwt_secret" --project="udemy-microsrv")
+    ORDER__DATABASE_URL=$(gcloud secrets versions access latest --secret="order__database_url" --project="udemy-microsrv")
+    PAYMENT__STRIPE_SECRET_KEY=$(gcloud secrets versions access latest --secret="payment__stripe_secret_key" --project="udemy-microsrv")
+    PAYMENT__STRIPE_WEBHOOK_SECRET=$(gcloud secrets versions access latest --secret="payment__stripe_webhook_secret" --project="udemy-microsrv")
+
+    helm upgrade udemy-microsrv-cluster ./k8s/udemy-microsrv-cluster \
+      --set secrets.auth__database_url="$$AUTH__DATABASE_URL" \
+      --set secrets.auth__jwt_secret="$$AUTH__JWT_SECRET" \
+      --set secrets.order__database_url="$$ORDER__DATABASE_URL" \
+      --set secrets.payment__stripe_secret_key="$$PAYMENT__STRIPE_SECRET_KEY" \
+      --set secrets.payment__stripe_webhook_secret="$$PAYMENT__STRIPE_WEBHOOK_SECRET"
+options:
+  logging: CLOUD_LOGGING_ONLY

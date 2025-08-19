@@ -1,0 +1,6 @@
+secrets:
+  auth__database_url: ""
+  auth__jwt_secret: ""
+  order__database_url: ""
+  payment__stripe_secret_key: ""
+  payment__stripe_webhook_secret: ""
